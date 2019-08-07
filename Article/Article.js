@@ -121,7 +121,7 @@ function articleComponent(
 ){
   //define new elements
   let articleDiv = document.createElement('div');
-  let articleh2 = document.createElement('h2');
+  let articleH2 = document.createElement('h2');
   let dateP = document.createElement('p');
   let p1 = document.createElement('p');
   let p2 = document.createElement('p');
@@ -129,27 +129,42 @@ function articleComponent(
   let span = document.createElement('span');
 
 
-//setup structure of elements
-articleDiv.appendChild(articleHeading);
-articleDiv.appendChild(dateP);
-articleDiv.appendChild(p1);
-articleDiv.appendChild(p2);
-articleDiv.appendChild(p3);
-articleDiv.appendChild(span);
+  //setup structure of elements 
+  articleDiv.appendChild(articleH2);
+  articleDiv.appendChild(dateP);
+  articleDiv.appendChild(p1);
+  articleDiv.appendChild(p2);
+  articleDiv.appendChild(p3);
+  articleDiv.appendChild(span);
 
-//set class names
-articleDiv.classList.add('article');
-datePara.classList.add('date');
-span.classList.add('expandButton');
+  //set class names
+  articleDiv.classList.add('article');
+  datePara.classList.add('date');
+  span.classList.add('expandButton');
 
-//set text content/img src
-articleHeading.textContent = title;
-dateP.textContent = date;
-p1.textContent = firstParagraph;
-p2.textContent = secondParagraph;
-p3.textContent = thirdParagraph;
+  //set text content/img src
+  articleH2.textContent = title;
+  dateP.textContent = date;
+  p1.textContent = firstParagraph;
+  p2.textContent = secondParagraph;
+  p3.textContent = thirdParagraph;
 
-return articleDiv;
-}
+  //  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+  articleDiv.addEventListener('click', () => {
+    span.classList.toggle('article-open'); // on and off
+  });// event listener
 
+  //Step 3: return the entire component.
+  //returns our newsFeed
+  return articleDiv;
+}; //end of component creator function
+
+//Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
 const articles = document.querySelector('.articles');
+const newArticles = data.map(articles, () =>{
+  articleComponent(articles.title,
+    articles.date,
+    articles.firstParagraph,
+    articles.secondParagraph,
+    articles.thirdParagraph)
+})

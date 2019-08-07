@@ -33,3 +33,31 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
   
 */
+// Step 1: Write a function that will create a menu component as seen below:
+function createMenu(arr){
+  //create elements
+  const menu = document.createElement('div');
+  const unorderList = document.createElement('ul')
+  
+  //create structure  
+  menu.appendChild(unorderList);
+
+  //class
+  menu.classList.add('menu');
+
+//   Step 2: Iterate over the array creating a list item <li> element for each item in the array. 
+//   Add those items to the <ul>
+  arr.forEach(element => {
+    let listItem = document.createElement('li');
+    listItem.textContent = element
+    unorderList.appendChild(listItem)
+  });
+ const menuBtn = document.querySelector('.menu-button')
+ menuBtn.addEventListener('click',function(){
+    menu.classList.toggle('menu--open')
+ })
+ return menu;
+}
+
+const header = document.querySelector('.header');
+header.appendChild(createMenu(menuItems));

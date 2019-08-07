@@ -139,7 +139,7 @@ function articleComponent(
 
   //set class names
   articleDiv.classList.add('article');
-  datePara.classList.add('date');
+  dateP.classList.add('date');
   span.classList.add('expandButton');
 
   //set text content/img src
@@ -148,10 +148,11 @@ function articleComponent(
   p1.textContent = firstParagraph;
   p2.textContent = secondParagraph;
   p3.textContent = thirdParagraph;
+  span.textContent ='\u21E9';
 
   //  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-  articleDiv.addEventListener('click', () => {
-    span.classList.toggle('article-open'); // on and off
+  span.addEventListener('click', () => {
+    articleDiv.classList.toggle('article-open'); // on and off
   });// event listener
 
   //Step 3: return the entire component.
@@ -161,10 +162,18 @@ function articleComponent(
 
 //Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
 const articles = document.querySelector('.articles');
-const newArticles = data.map(articles, () =>{
-  articleComponent(articles.title,
+const newArticles = data.map((articles) =>{
+  let newArt = articleComponent(
+    articles.title,
     articles.date,
     articles.firstParagraph,
     articles.secondParagraph,
-    articles.thirdParagraph)
-})
+    articles.thirdParagraph);
+    return newArt;
+});
+
+newArticles.forEach((newArticle) => {
+  articles.appendChild(newArticle)
+})//invoking function to populate articles
+console.log(newArticles);
+//Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
